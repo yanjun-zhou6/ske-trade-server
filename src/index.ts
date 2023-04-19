@@ -1,7 +1,11 @@
-import { WebSocketServer } from 'ws'
-import { onConnect } from './rxws'
-import controller from './controller'
+import { connect } from './db'
+import config from './config'
+import { initData } from './db/init-trades'
+import startServer from './socket-server'
 
-const wss = new WebSocketServer({ port: 8080 })
-
-wss.on('connection', onConnect(controller))
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+;(async () => {
+  await connect(config.db)
+  await initData(config.initTraderNumber)
+  startServer(config.port)
+})()
