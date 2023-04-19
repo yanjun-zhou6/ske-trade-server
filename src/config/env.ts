@@ -4,4 +4,5 @@ export default {
   token_key: 'Z5e6cSh3ioUtBz6sOT5FCr8SAsJpwjCY',
   secret_key: 'KnsDAxYPpFOZuSfippK8KyqsXiHw76xB',
   initTraderNumber: 100,
+  modifyPeriod: 1000,
 }

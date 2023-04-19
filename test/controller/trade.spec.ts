@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import startServer from '../../src/socket-server'
 import { connect } from '../../src/db'
 import config from '../../src/config'
@@ -25,7 +26,10 @@ beforeAll(async () => {
   server = startServer(config.port)
 })
 
-afterAll(() => server.close())
+afterAll(async () => {
+  server.close()
+  await mongoose.connection.close()
+})
 
 test('test getTrades', async () => {
   const client = new WebSocketClient(`ws://localhost:${config.port}`)

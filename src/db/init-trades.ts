@@ -4,7 +4,7 @@ import { TradeEntity, Direction, TradeStatus } from '../model'
 import TRADE_SYMBOLS from './trade-symbol'
 import { random } from '../helper'
 
-const generateTradeEntity = (): TradeEntity => {
+export const generateTradeEntity = (): TradeEntity => {
   return {
     tradeId: faker.datatype.uuid(),
     tradeName: faker.name.lastName(),
@@ -17,7 +17,9 @@ const generateTradeEntity = (): TradeEntity => {
   }
 }
 
-export const initData = async (number: number) => {
+export const addTrades = async (number: number) => {
   const trades = Array.from({ length: number }).map(() => generateTradeEntity())
-  await tradeModel.insertMany(trades)
+  return await tradeModel.insertMany(trades)
 }
+
+export const initTrades = addTrades
