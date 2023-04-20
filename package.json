@@ -7,6 +7,7 @@
     "build": "rimraf ./build && babel src --extensions .ts --out-dir build",
     "start:dev": "nodemon --watch src --exec babel-node src/index.ts --extensions .ts",
     "start": "npm run build && node build/index.js",
+    "initDB": "babel-node src/db/init-db.ts --extensions .ts",
     "prepare": "husky install",
     "lint": "eslint src --ext .ts",
     "prettier": "prettier . --write",

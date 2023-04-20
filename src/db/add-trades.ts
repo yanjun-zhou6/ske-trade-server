@@ -21,5 +21,3 @@ export const addTrades = async (number: number) => {
   const trades = Array.from({ length: number }).map(() => generateTradeEntity())
   return await tradeModel.insertMany(trades)
 }
-
-export const initTrades = addTrades

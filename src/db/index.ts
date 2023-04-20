@@ -1,12 +1,8 @@
-import mongoose from 'mongoose'
+import mongoose, { Mongoose } from 'mongoose'
 
-export const connect = async (url: string): Promise<void> => {
-  try {
-    await mongoose.connect(url)
-    mongoose.connection.on('error', (err) => {
-      console.error(err)
-    })
-  } catch (err) {
+export const connect = async (url: string): Promise<Mongoose> => {
+  mongoose.connection.on('error', (err) => {
     console.error(err)
-  }
+  })
+  return await mongoose.connect(url)
 }

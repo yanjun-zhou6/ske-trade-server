@@ -3,7 +3,7 @@ import { interval } from 'rxjs'
 import tradeModel from '../db/model/trade'
 import { TradeEntity } from '../model'
 import mergeMapFrom from '../operators/merge-map-from'
-import { addTrades } from '../db/init-trades'
+import { addTrades } from './add-trades'
 import { random } from '../helper'
 
 export const randomPickTrades = async (maxAmount: number) =>
