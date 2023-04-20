@@ -12,7 +12,7 @@ export interface Message {
   [key: string]: unknown
 }
 
-export type EventSubject = Subject<{ event: string; ws: WebSocket }>
+export type EventSubject = Subject<{ eventType: string; ws: WebSocket }>
 
 export const onConnect = (
   controller: Controller,
@@ -36,8 +36,8 @@ export const onConnect = (
             data as WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>,
           ).toString(),
         ),
-      )
-      eventSubject?.next({ event: message.event, ws })
+      ) as Message
+      eventSubject?.next({ eventType: message.eventType, ws })
       rootSubject.next(message)
     })
 

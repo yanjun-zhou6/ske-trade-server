@@ -47,12 +47,16 @@ const TradeSchema = new mongoose.Schema(
         return await this.find()
           .skip(page * amount)
           .limit(amount)
-          .sort({ _id: -1 })
+          .sort({ tradeId: -1 })
       },
       async findRandom(maxNumber: number) {
         return await this.aggregate([
           { $sample: { size: random(0, maxNumber) } },
         ])
+      },
+
+      async deleteByTradeId(tradeId: string) {
+        return await this.deleteOne({ tradeId })
       },
     },
   },

@@ -10,6 +10,11 @@ import ModifyObserver from './jobs/modify-observer'
   await connect(config.db)
   // await initTrades(config.initTraderNumber)
   const modifyObserver = ModifyObserver()
-  startServer(config.port, modifyObserver.subscribe())
-  modifyProcessObservable.subscribe(modifyObserver.notify)
+  const server = startServer(config.port, modifyObserver.subscribe())
+  const modifyProcessSubscription = modifyProcessObservable.subscribe(
+    modifyObserver.notify,
+  )
+  server.on('close', modifyProcessSubscription.unsubscribe)
+
+  console.log('websock is listenning on port:', 8080)
 })()

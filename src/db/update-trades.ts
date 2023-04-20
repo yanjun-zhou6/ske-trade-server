@@ -12,13 +12,15 @@ export const randomPickTrades = async (maxAmount: number) =>
 export const updateTradePrices = async (pickedTrades: TradeEntity[]) => {
   return await Promise.all(
     pickedTrades.map(async (trade) => {
-      return await tradeModel.updateOne(
-        { tradeId: trade.tradeId },
-        {
-          currentPrice: Number(faker.finance.amount()),
-          lastPrice: trade.currentPrice,
-        },
-      )
+      return await tradeModel
+        .updateOne(
+          { tradeId: trade.tradeId },
+          {
+            currentPrice: Number(faker.finance.amount()),
+            lastPrice: trade.currentPrice,
+          },
+        )
+        .findOne({ tradeId: trade.tradeId })
     }),
   )
 }
@@ -35,7 +37,8 @@ export const timingModifer = (
       const pickedTrades = await randomPickTrades(maxUpdateAmount)
       const updateRes = await updateTradePrices(pickedTrades)
       const addRes = await addTradePrices(random(0, maxAddAmount))
-      return { updateRes, addRes }
+      const totolAmount = await tradeModel.estimatedDocumentCount()
+      return { data: { updateRes, addRes, totolAmount } }
     }),
   )
 }
