@@ -4,9 +4,10 @@ import tradeModel from '../db/model/trade'
 import { TradeEntity } from '../model'
 import mergeMapFrom from '../operators/merge-map-from'
 import { addTrades } from '../db/init-trades'
+import { random } from '../helper'
 
-export const randomPickTrades = async (amount: number) =>
-  await tradeModel.findRandom(amount)
+export const randomPickTrades = async (maxAmount: number) =>
+  await tradeModel.findRandom(maxAmount)
 
 export const updateTradePrices = async (pickedTrades: TradeEntity[]) => {
   return await Promise.all(
@@ -26,14 +27,14 @@ export const addTradePrices = async (amount: number) => await addTrades(amount)
 
 export const timingModifer = (
   period: number,
-  updateAmount: number,
-  addAmount: number,
+  maxUpdateAmount: number,
+  maxAddAmount: number,
 ) => {
   return interval(period).pipe(
     mergeMapFrom(async () => {
-      const pickedTrades = await randomPickTrades(updateAmount)
+      const pickedTrades = await randomPickTrades(maxUpdateAmount)
       const updateRes = await updateTradePrices(pickedTrades)
-      const addRes = await addTradePrices(addAmount)
+      const addRes = await addTradePrices(random(0, maxAddAmount))
       return { updateRes, addRes }
     }),
   )

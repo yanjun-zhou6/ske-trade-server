@@ -12,8 +12,11 @@ export interface Message {
   [key: string]: unknown
 }
 
+export type EventSubject = Subject<{ event: string; ws: WebSocket }>
+
 export const onConnect = (
   controller: Controller,
+  eventSubject?: EventSubject,
 ): ((ws: WebSocket) => void) => {
   return (ws: WebSocket): void => {
     const rootSubject = new Subject<Message>()
@@ -34,6 +37,7 @@ export const onConnect = (
           ).toString(),
         ),
       )
+      eventSubject?.next({ event: message.event, ws })
       rootSubject.next(message)
     })
 

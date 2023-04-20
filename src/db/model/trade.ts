@@ -51,7 +51,7 @@ const TradeSchema = new mongoose.Schema(
       },
       async findRandom(maxNumber: number) {
         return await this.aggregate([
-          { $sample: { size: random(1, maxNumber) } },
+          { $sample: { size: random(0, maxNumber) } },
         ])
       },
     },

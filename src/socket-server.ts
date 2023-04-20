@@ -1,10 +1,10 @@
 import { WebSocketServer } from 'ws'
 import controller from './controller'
-import { onConnect } from './rxws'
+import { onConnect, EventSubject } from './rxws'
 
-const startServer = (port: number) => {
+const startServer = (port: number, eventSubject?: EventSubject) => {
   const server = new WebSocketServer({ port })
-  server.on('connection', onConnect(controller))
+  server.on('connection', onConnect(controller, eventSubject))
 
   return server
 }

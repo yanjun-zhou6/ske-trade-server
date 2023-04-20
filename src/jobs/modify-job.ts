@@ -5,7 +5,9 @@ import config from '../config'
 connect(config.db)
   .then(() => {
     timingModifer(config.modifyPeriod, 9, 1).subscribe({
-      next: console.log,
+      next: (data) => {
+        process.send?.(data)
+      },
       error: console.error,
     })
   })
