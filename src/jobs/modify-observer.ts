@@ -1,6 +1,7 @@
 import { Subject } from 'rxjs'
 import { filter, scan } from 'rxjs/operators'
 import { WebSocket } from 'ws'
+import { base64encode } from 'nodejs-base64'
 import { EventSubject } from '../rxws'
 
 const ModifyObserver = () => {
@@ -21,8 +22,14 @@ const ModifyObserver = () => {
     return eventSubject
   }
 
+  const notify = (data: any) => {
+    console.log('data', data)
+    wss.forEach((ws) => ws.send(base64encode(JSON.stringify(data))))
+  }
+
   return {
     subscribe,
+    notify,
   }
 }
 
