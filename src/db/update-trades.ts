@@ -47,8 +47,14 @@ export const timingModifer = (
   return interval(period).pipe(
     mergeMapFrom(async () => {
       const pickedTrades = await randomPickTrades(maxUpdateAmount)
-      const updateTrades = await updateTradePrices(pickedTrades)
-      const addTrades = await addTradePrices(random(0, maxAddAmount))
+      const updateTrades =
+        process.env.UPDATE_TRADE === 'true'
+          ? await updateTradePrices(pickedTrades)
+          : []
+      const addTrades =
+        process.env.NEW_TRADE === 'true'
+          ? await addTradePrices(random(0, maxAddAmount))
+          : []
       const totalAmount = await tradeModel.estimatedDocumentCount()
       return {
         eventType: 'updateTrades',

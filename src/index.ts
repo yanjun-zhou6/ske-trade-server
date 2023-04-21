@@ -9,7 +9,7 @@ import ModifyObserver from './jobs/modify-observer'
     const modifyObserver = ModifyObserver()
     const server = startServer(config.port, modifyObserver.subscribe())
     // update trades automatically in another process
-    if (process.env.UPDATE_LAUNCH === 'true') {
+    if (process.env.MODIFY_JOB === 'true') {
       const modifyProcessSubscription = modifyProcessObservable.subscribe(
         modifyObserver.notify,
       )

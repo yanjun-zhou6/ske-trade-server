@@ -4,7 +4,7 @@ import config from '../config'
 ;(async () => {
   try {
     const mongoose = await connect(config.db)
-    await addTrades(config.initTraderNumber)
+    await addTrades(Number(process.env.TRADE_AMOUNT ?? '100'))
 
     mongoose.connection.close()
     console.log('initialize db successfully')

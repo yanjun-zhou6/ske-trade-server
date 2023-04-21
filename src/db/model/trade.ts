@@ -47,7 +47,7 @@ const TradeSchema = new mongoose.Schema(
         return await this.find()
           .skip((page - 1) * amount)
           .limit(amount)
-          .sort({ updateTime: -1 })
+          .sort({ _id: 1 })
       },
       async findRandom(maxNumber: number) {
         return await this.aggregate([
