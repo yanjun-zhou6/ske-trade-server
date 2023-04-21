@@ -45,7 +45,7 @@ const TradeSchema = new mongoose.Schema(
     statics: {
       async findByPage({ page, amount, condition = {} }) {
         return await this.find()
-          .skip(page * amount)
+          .skip((page - 1) * amount)
           .limit(amount)
           .sort({ updateTime: -1 })
       },

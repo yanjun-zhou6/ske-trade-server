@@ -3,14 +3,13 @@ import { base64decode, base64encode } from 'nodejs-base64'
 import { mergeAll, filter } from 'rxjs/operators'
 import { WebSocket } from 'ws'
 
-export interface Controller {
-  (rootObservable: Observable<Message>): Observable<unknown>
+export interface Controller<T = any> {
+  (rootObservable: Observable<Message<T>>): Observable<unknown>
 }
 
-export interface Message {
-  eventType: string
-  [key: string]: unknown
-}
+export type Message<T = any> = {
+  [key in keyof T]: T[key]
+} & { eventType: string }
 
 export type EventSubject = Subject<{ eventType: string; ws: WebSocket }>
 
@@ -45,8 +44,8 @@ export const onConnect = (
   }
 }
 
-export const ofType = (eventType: string) => {
-  return (observable$: Observable<Message>) =>
+export const ofType = <T extends { eventType: string }>(eventType: string) => {
+  return (observable$: Observable<T>) =>
     observable$.pipe(
       filter(({ eventType: targetEventType }) => targetEventType === eventType),
     )

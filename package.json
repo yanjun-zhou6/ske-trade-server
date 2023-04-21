@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./build && babel src --extensions .ts --out-dir build",
-    "start:dev": "NODE_ENV=development nodemon --watch src --exec babel-node src/index.ts --extensions .ts",
-    "start": "npm run build && node build/index.js",
+    "start:dev": "cross-env NODE_ENV=development UPDATE_LAUNCH=true nodemon --watch src --exec babel-node src/index.ts --extensions .ts",
+    "start": "npm run build && cross-env UPDATE_LAUNCH=false node build/index.js",
     "initDB": "babel-node src/db/init-db.ts --extensions .ts",
     "prepare": "husky install",
     "lint": "eslint src --ext .ts",
@@ -36,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.55.0",
     "babel-node": "^0.0.1-security",
+    "cross-env": "^7.0.3",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
