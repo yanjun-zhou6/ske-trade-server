@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { interval } from 'rxjs'
 import tradeModel from '../db/model/trade'
-import { TradeEntity } from '../model'
+import { TradeEntity, TradeStatus, Direction } from '../model'
 import mergeMapFrom from '../operators/merge-map-from'
 import { addTrades } from './add-trades'
 import { random } from '../helper'
@@ -12,15 +12,27 @@ export const randomPickTrades = async (maxAmount: number) =>
 export const updateTradePrices = async (pickedTrades: TradeEntity[]) => {
   return await Promise.all(
     pickedTrades.map(async (trade) => {
-      return await tradeModel
-        .updateOne(
-          { tradeId: trade.tradeId },
-          {
-            currentPrice: Number(faker.finance.amount()),
-            lastPrice: trade.currentPrice,
-          },
-        )
-        .findOne({ tradeId: trade.tradeId })
+      const currentPrice = trade.currentPrice
+      const newPrice = Number(faker.finance.amount())
+      const trend =
+        newPrice > currentPrice
+          ? Direction.Up
+          : newPrice < currentPrice
+          ? Direction.Down
+          : Direction.Origin
+
+      const updateObj = {
+        currentPrice: newPrice,
+        lastPrice: currentPrice,
+        tradeStatus: TradeStatus.Updated,
+        trend,
+      }
+
+      await tradeModel.updateOne({ tradeId: trade.tradeId }, updateObj)
+      return {
+        ...trade,
+        ...updateObj,
+      }
     }),
   )
 }
@@ -35,10 +47,13 @@ export const timingModifer = (
   return interval(period).pipe(
     mergeMapFrom(async () => {
       const pickedTrades = await randomPickTrades(maxUpdateAmount)
-      const updateRes = await updateTradePrices(pickedTrades)
-      const addRes = await addTradePrices(random(0, maxAddAmount))
-      const totolAmount = await tradeModel.estimatedDocumentCount()
-      return { data: { updateRes, addRes, totolAmount } }
+      const updateTrades = await updateTradePrices(pickedTrades)
+      const addTrades = await addTradePrices(random(0, maxAddAmount))
+      const totalAmount = await tradeModel.estimatedDocumentCount()
+      return {
+        eventType: 'updateTrades',
+        data: { updateTrades, addTrades, totalAmount },
+      }
     }),
   )
 }
