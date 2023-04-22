@@ -15,7 +15,7 @@ const getTrade: Controller<{ page: number; amount: number }> = (
         page,
         amount,
       })
-      console.log('getTrades', { trades, totalAmount, hasMore })
+
       return { eventType: 'getTrades', data: { trades, totalAmount, hasMore } }
     }),
   )

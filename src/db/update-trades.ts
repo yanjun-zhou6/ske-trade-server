@@ -6,6 +6,8 @@ import mergeMapFrom from '../operators/merge-map-from'
 import { addTrades } from './add-trades'
 import { random } from '../helper'
 
+const SAME_PRICE_RATE = 0.3
+
 export const randomPickTrades = async (maxAmount: number) =>
   await tradeModel.findRandom(maxAmount)
 
@@ -13,7 +15,10 @@ export const updateTradePrices = async (pickedTrades: TradeEntity[]) => {
   return await Promise.all(
     pickedTrades.map(async (trade) => {
       const currentPrice = trade.currentPrice
-      const newPrice = Number(faker.finance.amount())
+      const newPrice =
+        Math.random() < SAME_PRICE_RATE
+          ? currentPrice
+          : Number(faker.finance.amount())
       const trend =
         newPrice > currentPrice
           ? Direction.Up
@@ -56,6 +61,7 @@ export const timingModifer = (
           ? await addTradePrices(random(0, maxAddAmount))
           : []
       const totalAmount = await tradeModel.estimatedDocumentCount()
+
       return {
         eventType: 'updateTrades',
         data: { updateTrades, addTrades, totalAmount },
