@@ -10,6 +10,11 @@ export enum TradeStatus {
   Closed = 'Closed',
 }
 
+export enum ResponseCode {
+  Success = 1,
+  Failure = 0,
+}
+
 export interface TradeEntity {
   tradeId: string
   tradeName: string

@@ -1,7 +1,7 @@
 import { Observable, from, mergeMap } from 'rxjs'
 
 const mergeMapFrom =
-  <Context>(asyncFunc: (context: Context) => Promise<unknown>) =>
+  <Context, ReturnType>(asyncFunc: (context: Context) => Promise<ReturnType>) =>
   (observable: Observable<Context>) => {
     return observable.pipe(mergeMap((context) => from(asyncFunc(context))))
   }

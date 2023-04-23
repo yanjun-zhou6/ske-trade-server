@@ -4,12 +4,18 @@ import { mergeAll, filter } from 'rxjs/operators'
 import { WebSocket } from 'ws'
 
 export interface Controller<T = any> {
-  (rootObservable: Observable<Message<T>>): Observable<unknown>
+  (rootObservable: Observable<Message<T>>): Observable<ResponseData>
 }
 
 export type Message<T = any> = {
   [key in keyof T]: T[key]
 } & { eventType: string }
+
+export interface ResponseData {
+  code: number
+  data: object
+  eventType: string
+}
 
 export type EventSubject = Subject<{ eventType: string; ws: WebSocket }>
 
@@ -23,6 +29,7 @@ export const onConnect = (
 
     rootControllerObservable.subscribe({
       next: (response) => {
+        console.log('response', response)
         ws.send(base64encode(JSON.stringify(response)))
       },
       error: console.error,

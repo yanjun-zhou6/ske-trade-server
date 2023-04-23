@@ -1,6 +1,6 @@
 import tradeModel from './model/trade'
 import { faker } from '@faker-js/faker'
-import { TradeEntity, Direction, TradeStatus } from '../model'
+import { TradeEntity, Direction, TradeStatus } from '../types'
 import TRADE_SYMBOLS from './trade-symbol'
 import { random } from '../helper'
 

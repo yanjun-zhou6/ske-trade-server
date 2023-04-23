@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { interval } from 'rxjs'
 import tradeModel from '../db/model/trade'
-import { TradeEntity, TradeStatus, Direction } from '../model'
+import { TradeEntity, TradeStatus, Direction } from '../types'
 import mergeMapFrom from '../operators/merge-map-from'
 import { addTrades } from './add-trades'
 import { random } from '../helper'

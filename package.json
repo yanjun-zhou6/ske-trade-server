@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./build && babel src --extensions .ts --out-dir build",
-    "start:dev": "cross-env NODE_ENV=development MODIFY_JOB=true NEW_TRADE=true UPDATE_TRADE=true nodemon --watch src --exec babel-node src/index.ts --extensions .ts",
+    "start:dev": "cross-env NODE_ENV=development MODIFY_JOB=false NEW_TRADE=true UPDATE_TRADE=true nodemon --watch src --exec babel-node src/index.ts --extensions .ts",
     "start": "npm run build && cross-env MODIFY_JOB=false NEW_TRADE=true UPDATE_TRADE=true node build/index.js",
     "initDB": "cross-env TRADE_AMOUNT=40 babel-node src/db/init-db.ts --extensions .ts",
     "prepare": "husky install",

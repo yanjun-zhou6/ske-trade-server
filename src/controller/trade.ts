@@ -1,6 +1,7 @@
 import { ofType, composeControllers, Controller } from '../rxws'
 import mergeMapFrom from '../operators/merge-map-from'
 import tradeModel from '../db/model/trade'
+import { ResponseCode } from '../types'
 
 const getTrade: Controller<{ page: number; amount: number }> = (
   rootObservable,
@@ -16,7 +17,11 @@ const getTrade: Controller<{ page: number; amount: number }> = (
         amount,
       })
 
-      return { eventType: 'getTrades', data: { trades, totalAmount, hasMore } }
+      return {
+        eventType: 'getTrades',
+        code: ResponseCode.Success,
+        data: { trades, totalAmount, hasMore },
+      }
     }),
   )
 }
@@ -26,9 +31,14 @@ const deleteTrade: Controller<{ tradeId: string }> = (rootObservable) => {
     ofType('deleteTrade'),
     mergeMapFrom(async (message) => {
       const { tradeId } = message
-      const deleted = await tradeModel.deleteByTradeId(tradeId)
+      const { deletedCount } = await tradeModel.deleteByTradeId(tradeId)
       const totalAmount = await tradeModel.estimatedDocumentCount()
-      return { eventType: 'deleteTrade', data: { deleted, totalAmount } }
+
+      return {
+        eventType: 'deleteTrade',
+        code: deletedCount === 1 ? ResponseCode.Success : ResponseCode.Failure,
+        data: { totalAmount },
+      }
     }),
   )
 }
