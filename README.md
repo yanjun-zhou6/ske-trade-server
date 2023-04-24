@@ -2,6 +2,22 @@
 
 This is a project which created as a sever side while I join SKE event in my company EPAM. A simple example of Trading system to practise EngX culture that's promoted by EPAM.
 
+## prerequisite
+
+Please set up running environment via installing necessary software as `MongoDB`, `Node` in your computer.
+
+## git started
+
+To start this project, please run commands as follow.
+
+```sh
+npm install
+npm run initDB
+npm start
+```
+
+Install dependencies, then initialize dataset in MongoDB by running `initDB` script, and start it.
+
 ## Q&A
 
 - what does the typeconfig option "lib" do?
@@ -28,10 +44,6 @@ This is a project which created as a sever side while I join SKE event in my com
 
 [How to Setup a TypeScript + Node.js Project](https://khalilstemmler.com/blogs/typescript/node-starter-project/)
 
-[Offical KOA](https://koajs.com/)
-
-[How Koa middleware works](https://itnext.io/how-koa-middleware-works-f4386b5573c)
-
 [Install MongoDB Community Edition on macOS](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/#install-mongodb-community-edition)
 
 [mongosh](https://www.mongodb.com/docs/mongodb-shell/reference/editor-mode/)
@@ -40,15 +52,7 @@ This is a project which created as a sever side while I join SKE event in my com
 
 [How To Safely Store A Password](https://codahale.com/how-to-safely-store-a-password/)
 
-[URL encode and decode](https://www.cnblogs.com/liuhongfeng/p/5006341.html)
-
-[Uniform Resource Identifier (URI): Generic Syntax](https://www.rfc-editor.org/rfc/rfc3986)
-
 [Plus sign in query string](https://stackoverflow.com/questions/6855624/plus-sign-in-query-string)
-
-## further
-
-- encryption
 
 ## issue
 
