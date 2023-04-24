@@ -1,4 +1,4 @@
-# Ske-trade
+# ske-2023Q2-trade-server
 
 This is a project which created as a sever side while I join SKE event in my company EPAM. A simple example of Trading system to practise EngX culture that's promoted by EPAM.
 
@@ -17,6 +17,8 @@ npm start
 ```
 
 Install dependencies, then initialize dataset in MongoDB by running `initDB` script, and start it.
+
+For `npm start` commit, there is three simple env variable `MODIFY_JOB`, `NEW_TRADE`, `UPDATE_TRADE` to controll whether launching job to modify trades by setting `MODIFY_JOB` true or false, anohter both boolen variable `NEW_TRADE`, `UPDATE_TRADE` is to determine if creating new trade, and updating trades which has exsited. You can check script details in the `package.json`
 
 ## Q&A
 
@@ -50,9 +52,11 @@ Install dependencies, then initialize dataset in MongoDB by running `initDB` scr
 
 [what is MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
 
-[How To Safely Store A Password](https://codahale.com/how-to-safely-store-a-password/)
+[ws](https://github.com/websockets/ws)
 
-[Plus sign in query string](https://stackoverflow.com/questions/6855624/plus-sign-in-query-string)
+[create a process with node fork](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options)
+
+[How To Launch Child Processes in Node.js](https://www.digitalocean.com/community/tutorials/how-to-launch-child-processes-in-node-js)
 
 ## issue
 
