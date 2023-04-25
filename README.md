@@ -28,7 +28,7 @@ For `npm start` commit, there is three simple env variable `MODIFY_JOB`, `NEW_TR
 
 ## design diagram
 
-![](./doc//request-handlig-sequence.png)
+![](./doc/request-handlig-sequence.png)
 
 As above diagram showed, While client send a request to get trades, it would get response with trades payload.In the meantime subscribe the event of trades update, so it would get notification from trades update process as long as some of trades are created newly or updated.
 
