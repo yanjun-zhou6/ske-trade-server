@@ -5,7 +5,7 @@ import { join } from 'path'
 export const startModifyProcess = () =>
   process.env.NODE_ENV === 'development'
     ? fork(join(__dirname, './modify-job.ts'), [], {
-        execPath: 'babel-node',
+        execPath: 'babel-node' + (/^win/.test(process.platform) ? '.cmd' : ''),
         execArgv: ['--extensions', '.ts'],
       })
     : fork(join(__dirname, './modify-job.js'))
