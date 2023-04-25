@@ -1,4 +1,6 @@
-# Steamable-express
+# Ske-trade
+
+This is a project which created as a sever side while I join SKE event in my company EPAM. A simple example of Trading system to practise EngX culture that's promoted by EPAM.
 
 ## Q&A
 
