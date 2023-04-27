@@ -4,7 +4,7 @@ import { WebSocket } from 'ws'
 import { base64encode } from 'nodejs-base64'
 import { EventSubject } from '../rxws'
 
-const ModifyObserver = () => {
+const ModifySubject = () => {
   let wss: WebSocket[] = []
   const eventSubject: EventSubject = new Subject()
 
@@ -34,4 +34,4 @@ const ModifyObserver = () => {
   }
 }
 
-export default ModifyObserver
+export default ModifySubject
