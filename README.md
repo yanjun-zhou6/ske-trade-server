@@ -2,6 +2,10 @@
 
 This is a project which created as a sever side while I join SKE event in my company EPAM. A simple example of Trading system to practise EngX culture that's promoted by EPAM.
 
+Similar with the front-end part, based on the principle of minimal usage of framework, scaffold and library to complement. Perform expriment in architing MVC mode upon socket server by a functional programming way fully using `Rxjs` which integrates with `ws` libray.
+
+Gracefully implement pub-sub design pattern upon IPC communication between two processes to subscribe update event from update process in condition of after responding the request for getting trade list in main process, same as taking benefits from `Rxjs`.
+
 ## prerequisite
 
 Please set up running environment via installing necessary software as `MongoDB`, `Node` in your computer.
