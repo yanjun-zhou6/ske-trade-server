@@ -22,7 +22,7 @@ npm start
 
 Install dependencies, then initialize dataset in MongoDB by running `initDB` script, and start it.
 
-For `npm start` commit, there is three simple env variable `MODIFY_JOB`, `NEW_TRADE`, `UPDATE_TRADE` to controll whether launching job to modify trades by setting `MODIFY_JOB` true or false, anohter both boolen variable `NEW_TRADE`, `UPDATE_TRADE` is to determine if creating new trade, and updating trades which has exsited. You can check script details in the `package.json`
+For `npm start` commit, there is three simple env variable `MODIFY_JOB`, `NEW_TRADE`, `UPDATE_TRADE` to controll whether launching job to modify trades by setting `MODIFY_JOB` true or false, another both boolen variable `NEW_TRADE`, `UPDATE_TRADE` is to determine if creating new trade, and updating trades which has exsited. You can check script details in the `package.json`
 
 > Note: `npm run start:dev` command for development env is unable to run in windows with an issue about IPC problem in window while forking a new process. Please use it in other system like linux, mac.
 > Relevant issues found in internet.
@@ -30,11 +30,15 @@ For `npm start` commit, there is three simple env variable `MODIFY_JOB`, `NEW_TR
 - [EBADF: bad file descriptor, uv_pipe_open on windows with ipc](https://github.com/moxystudio/node-cross-spawn/issues/137)
 - [Node child_process.spawn bad file descriptor on windows with ipc](https://stackoverflow.com/questions/63303200/node-child-process-spawn-bad-file-descriptor-on-windows-with-ipc)
 
-## design diagram
+## Sequence diagram
 
 ![](./doc/request-handlig-sequence.png)
 
-As above diagram showed, While client send a request to get trades, it would get response with trades payload.In the meantime subscribe the event of trades update, so it would get notification from trades update process as long as some of trades are created newly or updated.
+As above diagram showed, While client send a request to get trades, it would get response with trades payload. In the meantime subscribe the event of trades update, so it would get notification from trades update process as long as some of trades are created newly or updated.
+
+## Design diagram
+
+![](./doc/wsrx.png)
 
 ## Q&A
 
